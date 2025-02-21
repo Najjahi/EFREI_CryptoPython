@@ -28,7 +28,7 @@ def decryptage(token):
     except Exception as e:
         return f"Erreur lors du déchiffrement : {str(e)}"
 @app.route('/decrypt1', methods=['POST'])
-def decryptage():
+def decryptage2():
     valeur = request.form['valeur']  # Récupère la valeur envoyée via le formulaire
     try:       
         valeur_bytes = valeur.encode()  # Décryptage de la valeur reçue (il faut qu'elle soit en bytes, donc on encode)
