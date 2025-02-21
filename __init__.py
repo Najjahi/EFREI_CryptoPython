@@ -42,24 +42,17 @@ def encryptage2(cle, valeur):
 
 @app.route('/decrypt2/<string:cle>/<string:token>')
 def decryptage2(cle, token):
-    try:
-        # Vérification de la clé et du token
-        print(f"Clé : {cle}")
-        print(f"Token : {token}")
-        
-        # Générer l'instance Fernet avec la clé fournie
-        f = Fernet(cle.encode())  # La clé doit être encodée en bytes
-        
-        # Déchiffrement du token
-        valeur_bytes = f.decrypt(token.encode())  # Le token doit aussi être encodé en bytes
-        
-        # Retourner la valeur déchiffrée
-        return f"Valeur décryptée : {valeur_bytes.decode()}"  # Convertir la valeur déchiffrée en chaîne
+    try:        
+        print(f"Clé : {cle}")  # Vérification de la clé et du token
+        print(f"Token : {token}")               
+        f = Fernet(cle.encode())  # Générer l'instance Fernet avec la clé fournie : La clé doit être encodée en bytes         
+        valeur_bytes = f.decrypt(token.encode())  # Déchiffrement du token : Le token doit aussi être encodé en bytes      
+       
+        return f"Valeur décryptée : {valeur_bytes.decode()}"  # Retourner la valeur déchiffrée : Convertir la valeur déchiffrée en chaîne
     except Exception as e:
-        # Afficher l'erreur détaillée pour le débogage
-        print(f"Erreur lors du déchiffrement : {str(e)}")
+        
+        print(f"Erreur lors du déchiffrement : {str(e)}") # Afficher l'erreur détaillée pour le débogage
         return f"Erreur lors du déchiffrement : {str(e)}"
-
                                                                                                                                                      
 if __name__ == "__main__":
   app.run(debug=True)
