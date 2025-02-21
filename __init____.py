@@ -14,14 +14,14 @@ def hello_world():
 key = Fernet.generate_key()
 f = Fernet(key)
 
-@app.route('/encrypt/<string:valeur>') 
-def encryptage(valeur):
+@app.route('/encrypt5/<string:valeur>') 
+def encryptage5(valeur):
     valeur_bytes = valeur.encode()  # Conversion str -> bytes
     token = f.encrypt(valeur_bytes)  # Encrypt la valeur
     return f"Valeur encryptée : {token.decode()}"   # Retourne le token en str
 
-@app.route('/decrypt/<string:token>')
-def decryptage(token):
+@app.route('/decrypt5/<string:token>')
+def decryptage5(token):
     try:
         valeur_bytes = f.decrypt(token.encode())  # Déchiffrement
         return f"Valeur décryptée : {valeur_bytes.decode()}"  # Retourne la valeur déchiffrée
