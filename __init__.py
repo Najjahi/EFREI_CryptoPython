@@ -28,7 +28,7 @@ def decryptage():
         decrypted_value = f.decrypt(valeur_bytes)  # Décrypte la valeur
         return f"Valeur décryptée : {decrypted_value.decode()}"  # Retourne la valeur décryptée
     except Exception as e:
-        return f"Erreur lors du décryptage: {str(e)}"n str
+        return f"Erreur lors du décryptage: {str(e)}
                                                                                                                                                      
 if __name__ == "__main__":
   app.run(debug=True)
