@@ -20,7 +20,7 @@ def encryptage(valeur):
     token = f.encrypt(valeur_bytes)  # Encrypt la valeur
     return f"Valeur encryptée : {token.decode()}"   # Retourne le token en str
 
-@app.route('/decrypt', methods=['POST'])"
+@app.route('/decrypt', methods=['POST'])
 def decryptage():
     valeur = request.form['valeur']  # Récupère la valeur envoyée via le formulaire
     try:       
