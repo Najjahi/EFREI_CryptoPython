@@ -7,7 +7,7 @@ import sqlite3
                                                                                                                                        
 app = Flask(__name__)                                                                                                                  
                                                                                                                                        
-@app.route('/hello.html')
+@app.route('/hello')
 def hello_world():
     return render_template('hello.html')
 
