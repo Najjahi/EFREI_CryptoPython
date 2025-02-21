@@ -23,9 +23,8 @@ def encryptage(valeur):
 @app.route('/decrypt', methods=['POST'])
 def decryptage():
     valeur = request.form['valeur']  # Récupère la valeur envoyée via le formulaire
-    try:
-        # Décryptage de la valeur reçue (il faut qu'elle soit en bytes, donc on encode)
-        valeur_bytes = valeur.encode()
+    try:       
+        valeur_bytes = valeur.encode()  # Décryptage de la valeur reçue (il faut qu'elle soit en bytes, donc on encode)
         decrypted_value = f.decrypt(valeur_bytes)  # Décrypte la valeur
         return f"Valeur décryptée : {decrypted_value.decode()}"  # Retourne la valeur décryptée
     except Exception as e:
