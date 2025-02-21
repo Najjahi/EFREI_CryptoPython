@@ -33,7 +33,7 @@ def encryptage2(cle, valeur):
     try:
         hashed_key = hashlib.sha256(cle.encode()).digest()
         print(f"Hachage SHA-256 de la clé (32 octets) : {hashed_key}")
-        base64_key = base64.urlsafe_b64encode(hashed_key).decode()
+        base64_key = base64.urlsafe_b64encode(hashed_key)
         base64_key_str = base64_key.decode() 
         print(f"Clé Base64 URL-safe : {base64_key_str}")
         f = Fernet(cle.encode())  # Génération de l'instance Fernet avec la clé fournie
