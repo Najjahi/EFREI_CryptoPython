@@ -14,7 +14,7 @@ def hello_world():
 key = Fernet.generate_key()
 f = Fernet(key)
 
-@app.route('/encrypt/<string:valeur>') decrypt
+@app.route('/encrypt/<string:valeur>') 
 def encryptage(valeur):
     valeur_bytes = valeur.encode()  # Conversion str -> bytes
     token = f.encrypt(valeur_bytes)  # Encrypt la valeur
