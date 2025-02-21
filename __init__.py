@@ -3,7 +3,7 @@ from flask import Flask, render_template_string, render_template, jsonify
 from flask import render_template
 from flask import json
 from urllib.request import urlopen
-import sqlite3
+import sqlite3, hashlib, base64
                                                                                                                                        
 app = Flask(__name__)                                                                                                                  
                                                                                                                                        
@@ -31,6 +31,8 @@ def decryptage(token):
 @app.route('/encrypt2/<string:cle>/<string:valeur>')
 def encryptage2(cle, valeur):
     try:
+        hashed_key = hashlib.sha256(cle.encode()).digest()
+        base64_key = base64.urlsafe_b64encode(hashed_key).decode()
         f = Fernet(cle.encode())  # Génération de l'instance Fernet avec la clé fournie
         valeur_bytes = valeur.encode()  # Conversion str -> bytes
         token = f.encrypt(valeur_bytes)  # Chiffrement
