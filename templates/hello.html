@@ -1,3 +1,73 @@
 <!doctype html>
-<title> CryptoPython</title>
-<h1> Bienvue dans votre atelier CryptoPython !</h1>
+<html>
+  <head>
+    <meta charset="utf-8">
+   <title> CryptoPython</title>
+  </head>
+  <body>
+    <h1>Bienvenue dans votre atelier CryptoPython !</h1>
+
+    <div>
+      <label for="userKey">Votre clé Fernet :</label>
+      <input type="text" id="userKey" placeholder="Entrez votre clé Fernet">
+    </div>
+    
+    <hr>
+    
+    <h2>Chiffrement</h2>
+    <form id="encryptForm">
+      <label for="plaintext">Texte à chiffrer :</label>
+      <input type="text" id="plaintext" placeholder="Entrez le texte à chiffrer">
+      <br>
+      <button type="submit">Chiffrer</button>
+    </form>
+    <div id="encryptResult"></div>
+    
+    <hr>
+    
+    <h2>Déchiffrement</h2>
+    <form id="decryptForm">
+      <label for="token">Token à déchiffrer :</label>
+      <input type="text" id="token" placeholder="Entrez le token à déchiffrer">
+      <br>
+      <button type="submit">Déchiffrer</button>
+    </form>
+    <div id="decryptResult"></div>
+    
+    <script>
+    
+      document.getElementById('encryptForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const key = document.getElementById('userKey').value;
+        const plaintext = document.getElementById('plaintext').value;
+        const payload = { cle: key, valeur: plaintext };
+        fetch('/encrypt', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('encryptResult').innerText = "Token chiffré : " + data.result;
+        });
+      });
+      
+      
+      document.getElementById('decryptForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const key = document.getElementById('userKey').value;
+        const token = document.getElementById('token').value;
+        const payload = { cle: key, token: token };
+        fetch('/decrypt', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(payload)
+        })
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('decryptResult').innerText = "Texte déchiffré : " + data.result;
+        });
+      });
+    </script>
+  </body>
+</html>
