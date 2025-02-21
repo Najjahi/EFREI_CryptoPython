@@ -27,15 +27,26 @@ def decryptage(token):
         return f"Valeur décryptée : {valeur_bytes.decode()}"  # Retourne la valeur déchiffrée
     except Exception as e:
         return f"Erreur lors du déchiffrement : {str(e)}"
-@app.route('/decrypt2', methods=['POST'])
-def decryptage2():
-    valeur = request.form['valeur']  # Récupère la valeur envoyée via le formulaire
-    try:       
-        valeur_bytes = valeur.encode()  # Décryptage de la valeur reçue (il faut qu'elle soit en bytes, donc on encode)
-        decrypted_value = f.decrypt(valeur_bytes)  # Décrypte la valeur
-        return f"Valeur décryptée : {decrypted_value.decode()}"  # Retourne la valeur décryptée
+      
+@app.route('/encrypt2/<string:cle>/<string:valeur>')
+def encryptage2(cle, valeur):
+    try:
+        f = Fernet(cle.encode())  # Génération de l'instance Fernet avec la clé fournie
+        valeur_bytes = valeur.encode()  # Conversion str -> bytes
+        token = f.encrypt(valeur_bytes)  # Chiffrement
+        return f"Valeur encryptée : {token.decode()}"  # Retourne le token
     except Exception as e:
-        return f"Erreur lors du décryptage: {str(e)}"
+        return f"Erreur lors du chiffrement : {str(e)}"
+
+@app.route('/decrypt2/<string:cle>/<string:token>')
+def decryptage2(cle, token):
+    try:
+        f = Fernet(cle.encode())  # Génération de l'instance Fernet avec la clé fournie
+        valeur_bytes = f.decrypt(token.encode())  # Déchiffrement
+        return f"Valeur décryptée : {valeur_bytes.decode()}"  # Retourne la valeur déchiffrée
+    except Exception as e:
+        return f"Erreur lors du déchiffrement : {str(e)}"
+
                                                                                                                                                      
 if __name__ == "__main__":
   app.run(debug=True)
