@@ -14,11 +14,22 @@ def hello_world():
 key = Fernet.generate_key()
 f = Fernet(key)
 
-@app.route('/encrypt/<string:valeur>')
+@app.route('/encrypt/<string:valeur>') decrypt
 def encryptage(valeur):
     valeur_bytes = valeur.encode()  # Conversion str -> bytes
     token = f.encrypt(valeur_bytes)  # Encrypt la valeur
     return f"Valeur encryptée : {token.decode()}"   # Retourne le token en str
+
+@app.route('/decrypt', methods=['POST'])
+def decryptage():
+    valeur = request.form['valeur']  # Récupère la valeur envoyée via le formulaire
+    try:
+        # Décryptage de la valeur reçue (il faut qu'elle soit en bytes, donc on encode)
+        valeur_bytes = valeur.encode()
+        decrypted_value = f.decrypt(valeur_bytes)  # Décrypte la valeur
+        return f"Valeur décryptée : {decrypted_value.decode()}"  # Retourne la valeur décryptée
+    except Exception as e:
+        return f"Erreur lors du décryptage: {str(e)}"n str
                                                                                                                                                      
 if __name__ == "__main__":
   app.run(debug=True)
