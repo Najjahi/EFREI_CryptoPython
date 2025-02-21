@@ -7,7 +7,7 @@ import sqlite3
                                                                                                                                        
 app = Flask(__name__)                                                                                                                  
                                                                                                                                        
-@app.route('/hello')
+@app.route('/')
 def hello_world():
     return render_template('hello.html')
 
@@ -20,7 +20,14 @@ def encryptage(valeur):
     token = f.encrypt(valeur_bytes)  # Encrypt la valeur
     return f"Valeur encryptée : {token.decode()}"   # Retourne le token en str
 
-@app.route('/decrypt', methods=['POST'])
+@app.route('/decrypt/<string:token>')
+def decryptage(token):
+    try:
+        valeur_bytes = f.decrypt(token.encode())  # Déchiffrement
+        return f"Valeur décryptée : {valeur_bytes.decode()}"  # Retourne la valeur déchiffrée
+    except Exception as e:
+        return f"Erreur lors du déchiffrement : {str(e)}"
+@app.route('/decrypt1', methods=['POST'])
 def decryptage():
     valeur = request.form['valeur']  # Récupère la valeur envoyée via le formulaire
     try:       
