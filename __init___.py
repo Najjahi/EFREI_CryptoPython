@@ -19,7 +19,7 @@ def transformercle(custom_key: str) -> bytes:
 def hello_world():
     return render_template('hello.html')
 
-@app.route('/encrypt', methods=['POST'])
+@app.route('/encrypt3', methods=['POST'])
 def encryptage():
     data = request.get_json()
     cle = data.get('cle')
@@ -29,7 +29,7 @@ def encryptage():
     token = f.encrypt(valeur.encode())
     return jsonify({"result": token.decode()})
 
-@app.route('/decrypt', methods=['POST'])
+@app.route('/decrypt3', methods=['POST'])
 def decryptage():
     data = request.get_json()
     cle = data.get('cle')
