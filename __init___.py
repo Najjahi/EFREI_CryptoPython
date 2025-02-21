@@ -20,7 +20,7 @@ def hello_world():
     return render_template('hello.html')
 
 @app.route('/encrypt3', methods=['POST'])
-def encryptage():
+def encryptage3():
     data = request.get_json()
     cle = data.get('cle')
     valeur = data.get('valeur')
@@ -30,7 +30,7 @@ def encryptage():
     return jsonify({"result": token.decode()})
 
 @app.route('/decrypt3', methods=['POST'])
-def decryptage():
+def decryptage3():
     data = request.get_json()
     cle = data.get('cle')
     token = data.get('token')
